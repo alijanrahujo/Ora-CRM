@@ -3,7 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\PackagesController;
+use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\PermissionsController;
+use App\Http\Controllers\Purchase_serviceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,3 +37,8 @@ Route::middleware([
 Route::resource('users', UserController::class);
 Route::resource('roles', RoleController::class);
 Route::resource('permissions', PermissionsController::class);
+Route::resource('services', ServicesController::class);
+Route::post('ajax_services', [ServicesController::class, 'ajax_services']);
+Route::resource('packages', PackagesController::class);
+Route::resource('clients', ClientController::class);
+Route::resource('purchases', Purchase_serviceController::class);
