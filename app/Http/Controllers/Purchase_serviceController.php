@@ -37,7 +37,7 @@ class Purchase_serviceController extends Controller
         $services = Services::get();
         $packages = Package::get();
         $clients = Client::get();
-        return view("purchases.multipel", compact('services', 'packages', 'clients'));
+        return view("purchases.create", compact('services', 'packages', 'clients'));
         // return view("purchases.create");
     }
 

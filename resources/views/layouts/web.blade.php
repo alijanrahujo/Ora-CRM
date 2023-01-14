@@ -29,6 +29,7 @@
             text-align: right;
         }
     </style>
+    @livewireStyles
 </head>
 
 <body>
@@ -57,7 +58,8 @@
                 </li>
 
                 <li class="dropdown notification-list">
-                    <a class="nav-link dropdown-toggle  waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle  waves-effect waves-light" data-toggle="dropdown" href="#"
+                        role="button" aria-haspopup="false" aria-expanded="false">
                         <i class="dripicons-bell noti-icon"></i>
                         <span class="badge badge-pink rounded-circle noti-icon-badge">0</span>
                     </a>
@@ -79,7 +81,8 @@
                         </div>
 
                         <!-- All-->
-                        <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">
+                        <a href="javascript:void(0);"
+                            class="dropdown-item text-center text-primary notify-item notify-all">
                             View all
                             <i class="fi-arrow-right"></i>
                         </a>
@@ -88,7 +91,8 @@
                 </li>
 
                 <li class="dropdown notification-list">
-                    <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown"
+                        href="#" role="button" aria-haspopup="false" aria-expanded="false">
                         <img src="{{Auth::user()->profile_photo_url}}" alt="user-image" class="rounded-circle">
                         <span class="pro-user-name ml-1">
                             {{Auth::user()->name}} <i class="mdi mdi-chevron-down"></i>
@@ -304,7 +308,9 @@
                     <img src="{{asset('assets/images/layouts/dark.png')}}" class="img-fluid img-thumbnail" alt="">
                 </div>
                 <div class="custom-control custom-switch mb-3">
-                    <input type="checkbox" class="custom-control-input theme-choice" id="dark-mode-switch" data-bsStyle="{{asset('assets/css/bootstrap-dark.min.css')}}" data-appStyle="{{asset('assets/css/app-dark.min.css')}}" />
+                    <input type="checkbox" class="custom-control-input theme-choice" id="dark-mode-switch"
+                        data-bsStyle="{{asset('assets/css/bootstrap-dark.min.css')}}"
+                        data-appStyle="{{asset('assets/css/app-dark.min.css')}}" />
                     <label class="custom-control-label" for="dark-mode-switch">Dark Mode</label>
                 </div>
 
@@ -312,7 +318,8 @@
                     <img src="{{asset('assets/images/layouts/rtl.png')}}" class="img-fluid img-thumbnail" alt="">
                 </div>
                 <div class="custom-control custom-switch mb-3">
-                    <input type="checkbox" class="custom-control-input theme-choice" id="rtl-mode-switch" data-appStyle="assets/css/app-rtl.min.css" />
+                    <input type="checkbox" class="custom-control-input theme-choice" id="rtl-mode-switch"
+                        data-appStyle="assets/css/app-rtl.min.css" />
                     <label class="custom-control-label" for="rtl-mode-switch">RTL Mode</label>
                 </div>
 
@@ -320,11 +327,14 @@
                     <img src="{{asset('assets/images/layouts/dark-rtl.png')}}" class="img-fluid img-thumbnail" alt="">
                 </div>
                 <div class="custom-control custom-switch mb-5">
-                    <input type="checkbox" class="custom-control-input theme-choice" id="dark-rtl-mode-switch" data-bsStyle="assets/css/bootstrap-dark.min.css" data-appStyle="assets/css/app-dark-rtl.min.css" />
+                    <input type="checkbox" class="custom-control-input theme-choice" id="dark-rtl-mode-switch"
+                        data-bsStyle="assets/css/bootstrap-dark.min.css"
+                        data-appStyle="assets/css/app-dark-rtl.min.css" />
                     <label class="custom-control-label" for="dark-rtl-mode-switch">Dark RTL Mode</label>
                 </div>
 
-                <a href="https://1.envato.market/y2YAD" class="btn btn-danger btn-block mt-3" target="_blank"><i class="mdi mdi-download mr-1"></i> Download Now</a>
+                <a href="https://1.envato.market/y2YAD" class="btn btn-danger btn-block mt-3" target="_blank"><i
+                        class="mdi mdi-download mr-1"></i> Download Now</a>
             </div>
         </div> <!-- end slimscroll-menu-->
     </div>
@@ -348,35 +358,35 @@
     <script src="{{asset('assets/libs/jquery-toast/jquery.toast.min.js')}}"></script>
 
     @yield('script')
+    @livewireScripts
 
+    @if($message = Session::get('success'))
+    <script>
+        $.toast({
+            heading: "Well done!",
+            text: "{!! $message !!}",
+            position: "top-right",
+            loaderBg: "#5ba035",
+            icon: "success",
+            hideAfter: 3e3,
+            stack: 1
+        })
+    </script>
+    @endif
+
+    @if($message = Session::get('error'))
+    <script>
+        $.toast({
+            heading: "Oh snap!",
+            text: "{!! $message !!}",
+            position: "top-right",
+            loaderBg: "#bf441d",
+            icon: "error",
+            hideAfter: 3e3,
+            stack: 1
+        })
+    </script>
+    @endif
 </body>
 
 </html>
-
-@if($message = Session::get('success'))
-<script>
-    $.toast({
-        heading: "Well done!",
-        text: "{!! $message !!}",
-        position: "top-right",
-        loaderBg: "#5ba035",
-        icon: "success",
-        hideAfter: 3e3,
-        stack: 1
-    })
-</script>
-@endif
-
-@if($message = Session::get('error'))
-<script>
-    $.toast({
-        heading: "Oh snap!",
-        text: "{!! $message !!}",
-        position: "top-right",
-        loaderBg: "#bf441d",
-        icon: "error",
-        hideAfter: 3e3,
-        stack: 1
-    })
-</script>
-@endif

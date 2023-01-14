@@ -14,5 +14,6 @@ class Purchase_service extends Model
         'package_id',
         'duration',
         'status',
+        'purchased_date',
     ];
 }
