@@ -11,10 +11,16 @@ class Client extends Model
     protected $fillable = [
         'status',
         'name',
+        'organization',
         'email',
         'password',
         'address',
         'city',
         'contact',
     ];
+
+    public function purchase_service()
+    {
+        return $this->hasMany('App\Models\Purchase_service', 'client_id', 'id');
+    }
 }

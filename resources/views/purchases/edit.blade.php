@@ -4,7 +4,6 @@
 
 <div class="content-page">
     <div class="content">
-
         <!-- Start Content-->
         <div class="container-fluid">
 
@@ -15,17 +14,16 @@
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">purchases</a></li>
-                                <li class="breadcrumb-item active">All Purchases</li>
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">purchase service</a></li>
+                                <li class="breadcrumb-item active">Edit Purchase Service</li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Purchases</h4>
+                        <h4 class="page-title">Purchase Service</h4>
                     </div>
                 </div>
             </div>
             <!-- end page title -->
             <a href="{{Route('purchases.index')}}" style="font-size: 20px;"><i class="fa fa-arrow-circle-left mb-2" aria-hidden="true"></i></a>
-            <a href="{{Route('services.index')}}" style="font-size: 20px;"><i class="fa fa-arrow-circle-left mb-2" aria-hidden="true"></i></a>
             <div class="row">
                 <div class="col-lg-12">
 
@@ -42,46 +40,75 @@
                         </div>
                         @endif
 
-                        {!! Form::model($package, ['method' => 'PATCH','route' => ['packages.update', $package->id]]) !!}
+                        {!! Form::model($purchase, ['method' => 'PATCH','route' => ['purchases.update', $purchase->id]]) !!}
                         <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <strong>Name:</strong>
-                                    {!! Form::text('title', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+                                    <label>Client Name <span class="text-danger">*</span></label>
+                                    {!! Form::select('client_id', $clients,$purchase->client_id, array('class' => 'form-control')) !!}
+                                    @error('client')<ul class="parsley-errors-list filled" id="parsley-id-5">
+                                        <li class="parsley-required">{{$message}}</li>
+                                    </ul>@enderror
                                 </div>
                             </div>
-                            <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <strong>Price:</strong>
-                                    {!! Form::number('price', null, array('min'=>'2000','max'=>'10000','placeholder' => 'Price','class' => 'form-control')) !!}
+                                    <label>Service <span class="text-danger">*</span></label>
+                                    {!! Form::select('service_id', $services,$purchase->service_id, array('class' => 'form-control')) !!}
+                                    @error('service')<ul class="parsley-errors-list filled" id="parsley-id-5">
+                                        <li class="parsley-required">{{$message}}</li>
+                                    </ul>@enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Package <span class="text-danger">*</span></label>
+                                    {!! Form::select('package_id', $packages,$purchase->package_id, array('class' => 'form-control')) !!}
+                                    @error('package')<ul class="parsley-errors-list filled" id="parsley-id-5">
+                                        <li class="parsley-required">{{$message}}</li>
+                                    </ul>@enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Package Duration <span class="text-danger">*</span></label>
+                                    {!! Form::text('duration', null, array('class' => 'form-control')) !!}
+                                    @error('duration')<ul class="parsley-errors-list filled" id="parsley-id-5">
+                                        <li class="parsley-required">{{$message}}</li>
+                                    </ul>@enderror
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <strong>Duration:</strong>
-                                    {!! Form::number('duration', null, array('min'=>'2','max'=>'12','placeholder' => 'Duration','class' => 'form-control')) !!}
+                                    <label>Our Offer <span class="text-danger">*</span></label>
+                                    {!! Form::text('our_offer', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+                                    @error('ouroffer')<ul class="parsley-errors-list filled" id="parsley-id-5">
+                                        <li class="parsley-required">{{$message}}</li>
+                                    </ul>@enderror
                                 </div>
                             </div>
-                            <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <strong>Service:</strong>
-                                    <select name="service_id" class="form-control" required>
-                                        @foreach($services as $service)
-                                        <option selected="{{$service->id}}" value="{{$service->id}}">{{$service->title}}</option>
-                                        @endforeach
-                                    </select>
+                                    <label>Date <span class="text-danger">*</span></label>
+                                    {!! Form::date('purchased_date', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+                                    @error('date')<ul class="parsley-errors-list filled" id="parsley-id-5">
+                                        <li class="parsley-required">{{$message}}</li>
+                                    </ul>@enderror
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-md-6">
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <strong>Current Status:</strong>
+                                    <label>Status <span class="text-danger">*</span></label>
                                     <select name="status" class="form-control">
                                         <?php
-                                        if ($package->status == '1') {
+                                        if ($purchase->status == '1') {
                                             echo '<option vlaue="1">Active</option>';
                                             echo '<option value="0">In Active</option>';
                                         } else {
@@ -90,13 +117,23 @@
                                         }
                                         ?>
                                     </select>
-
+                                    @error('status')<ul class="parsley-errors-list filled" id="parsley-id-5">
+                                        <li class="parsley-required">{{$message}}</li>
+                                    </ul>@enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group text-right mt-3">
+                                    <button class="btn btn-primary waves-effect waves-light mr-1" type="submit">
+                                        Submit
+                                    </button>
+                                    <button type="reset" class="btn btn-secondary waves-effect waves-light">
+                                        Cancel
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
+
                         {!! Form::close() !!}
                     </div> <!-- end card-box -->
                 </div>

@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('package_id');
             $table->string('service_id');
             $table->string('client_id');
+            $table->integer('our_offer');
+            $table->integer('duration');
             $table->string('purchased_date');
             $table->timestamps();
         });

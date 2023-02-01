@@ -6,7 +6,6 @@ use App\Models\Package;
 use App\Models\Services;
 use Illuminate\Http\Request;
 use App\Models\Purchase_service;
-use App\Http\Controllers\ClientController;
 use App\Models\Client;
 
 class Purchase_serviceController extends Controller
@@ -18,13 +17,12 @@ class Purchase_serviceController extends Controller
      */
     public function index(Request $request)
     {
-        $services = Services::get();
-        $packages = Package::get();
-        $clients = Client::get();
+        // $services = Services::get();
+        // $packages = Package::get();
+        // $clients = Client::get();
         $data = Purchase_service::orderBy('id', 'DESC')->paginate(5);
-        return view('purchases.index', compact('data', 'services', 'packages', 'clients'))
+        return view('purchases.index', compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
-        // return view('purchases.index');
     }
 
     /**
@@ -97,8 +95,11 @@ class Purchase_serviceController extends Controller
      */
     public function edit($id)
     {
-        $Purchase = Purchase_service::find($id);
-        return view('purchases.edit', compact('Purchase'));
+        $services = Services::get()->pluck('title', 'id');
+        $packages = Package::get()->pluck('title', 'id');
+        $clients = Client::get()->pluck('name', 'id');
+        $purchase = Purchase_service::find($id);
+        return view("purchases.edit", compact('purchase', 'services', 'packages', 'clients'));
     }
 
     /**
@@ -111,9 +112,10 @@ class Purchase_serviceController extends Controller
     public function update(Request $request, $id)
     {
         $input = $request->all();
-        $Purchase = Purchase_service::find($id);
-        $Purchase->update($input);
-        return redirect()->route('purchases.index')->with('success', 'Purchase Updated successfully');
+        dd($input);
+        // $Purchase = Purchase_service::find($id);
+        // $Purchase->update($input);
+        // return redirect()->route('purchases.index')->with('success', 'Purchase Updated successfully');
     }
 
     /**

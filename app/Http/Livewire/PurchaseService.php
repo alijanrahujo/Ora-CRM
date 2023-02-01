@@ -19,16 +19,20 @@ class PurchaseService extends Component
     public $service;
     public $package;
     public $duration;
+    public $ouroffer;
     public $date;
     public $status;
+    public $purchase;
+    public $type;
 
 
     public function mount()
     {
+        $this->type = 'add';
         $this->clients = Client::all();
         $this->services = Services::all();
         $this->packages = collect();
-        $this->client = collect();
+        //$this->client = collect();
         $this->purchase_services = collect();
     }
     public function render()
@@ -41,6 +45,7 @@ class PurchaseService extends Component
             'client' => 'required',
             'service' => 'required',
             'package' => 'required',
+            'ouroffer' => 'required',
             'duration' => 'required',
             'date' => 'required',
             'status' => 'required',
@@ -65,20 +70,55 @@ class PurchaseService extends Component
             'client' => 'required',
             'service' => 'required',
             'package' => 'required',
+            'ouroffer' => 'required',
             'duration' => 'required',
             'date' => 'required',
             'status' => 'required',
         ]);
 
-        Purchase_service::create([
+        $data = [
             'client_id' => $this->client,
             'service_id' => $this->service,
             'package_id' => $this->package,
+            'our_offer' => $this->ouroffer,
+            'duration' => $this->duration,
             'purchased_date' => $this->date,
             'status' => $this->status,
-        ]);
+        ];
 
-        $this->purchase_services = Purchase_service::where('client_id', $this->client)->get();
-        session()->flash('success', 'Service purchased successfully');
+        if ($this->type == 'add') {
+            Purchase_service::create($data);
+            $this->purchase_services = Purchase_service::where('client_id', $this->client)->get();
+            session()->flash('success', 'Service purchased successfully');
+        } else if ($this->type == 'update') {
+            Purchase_service::where('id', $this->purchase->id)->update($data);
+            session()->flash('success', 'Service purchased successfully updated');
+        }
+
+        $this->mount();
+        $this->updatedClient($this->client);
+    }
+    public function deleteData($id)
+    {
+        Purchase_service::find($id)->delete();
+        $this->mount();
+        $this->updatedClient($this->client);
+    }
+    public function updateData($id)
+    {
+        $this->purchase = Purchase_service::where('id', $id)->first();
+
+        $this->client = $this->purchase->client_id;
+        $this->service = $this->purchase->service_id;
+        $this->package = $this->purchase->package_id;
+        $this->duration = $this->purchase->duration;
+        $this->ouroffer = $this->purchase->our_offer;
+        $this->date = $this->purchase->purchased_date;
+        $this->status = $this->purchase->status;
+        $this->type = 'update';
+
+        $this->updatedClient($this->client);
+        $this->updatedService($this->service);
+        $this->updatedPackage($this->package);
     }
 }

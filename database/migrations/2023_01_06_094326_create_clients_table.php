@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('status')->default(0);
             $table->string('name');
-            $table->string('organizatios')->nullable();
+            $table->string('organization')->nullable();
             $table->string('email');
             $table->string('password');
             $table->string('address');

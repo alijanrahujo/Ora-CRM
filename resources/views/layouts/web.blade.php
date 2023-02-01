@@ -16,6 +16,7 @@
 
     <!-- App css -->
     <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" id="bootstrap-stylesheet" />
+    <link href="{{asset('assets/css/all.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/css/app.min.css')}}" rel="stylesheet" type="text/css" id="app-stylesheet" />
     <link href="{{asset('assets/libs/jquery-toast/jquery.toast.min.css')}}" rel="stylesheet" type="text/css" />
@@ -58,8 +59,7 @@
                 </li>
 
                 <li class="dropdown notification-list">
-                    <a class="nav-link dropdown-toggle  waves-effect waves-light" data-toggle="dropdown" href="#"
-                        role="button" aria-haspopup="false" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle  waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                         <i class="dripicons-bell noti-icon"></i>
                         <span class="badge badge-pink rounded-circle noti-icon-badge">0</span>
                     </a>
@@ -81,8 +81,7 @@
                         </div>
 
                         <!-- All-->
-                        <a href="javascript:void(0);"
-                            class="dropdown-item text-center text-primary notify-item notify-all">
+                        <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">
                             View all
                             <i class="fi-arrow-right"></i>
                         </a>
@@ -91,8 +90,7 @@
                 </li>
 
                 <li class="dropdown notification-list">
-                    <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown"
-                        href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                         <img src="{{Auth::user()->profile_photo_url}}" alt="user-image" class="rounded-circle">
                         <span class="pro-user-name ml-1">
                             {{Auth::user()->name}} <i class="mdi mdi-chevron-down"></i>
@@ -207,24 +205,43 @@
                         </li>
                         <li>
                             <a href="javascript: void(0);">
-                                <i class="fe-sidebar"></i>
+                                <i class="fe-list"></i>
                                 <span>Services</span>
                                 <span class="menu-arrow"></span>
                             </a>
                             <ul class="nav-second-level" aria-expanded="false">
 
                                 <li><a href="{{Route('services.index')}}">Services</a></li>
-                                <li><a href="{{Route('packages.index')}}">Packages</a></li>
-                                <li><a href="{{Route('purchases.index')}}">Purchase Service</a></li>
-                                <li><a href="{{Route('permissions.index')}}">Client Services</a></li>
+                                <li><a href="{{Route('sub-services.index')}}">Sub Service</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript: void(0);">
+                                <i class="fa fa-list"></i>
+                                <span>Packages</span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <ul class="nav-second-level" aria-expanded="false">
 
+                                <li><a href="{{Route('packages.index')}}">Packages</a></li>
+                                <li><a href="{{Route('sub_packages.index')}}">Sub Packages</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript: void(0);">
+                                <span>Purchase & Invoice</span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <ul class="nav-second-level" aria-expanded="false">
+                                <li><a href="{{Route('invoices.index')}}"> <i class="fa fa-light fa-file-invoice"></i> Invoices</a></li>
+                                <li><a href="{{Route('purchases.index')}}"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Purchase Service</a></li>
                             </ul>
                         </li>
 
                         @can('user-access')
                         <li>
                             <a href="javascript: void(0);">
-                                <i class="fe-sidebar"></i>
+                                <i class="fa fa-users"></i>
                                 <span>Users</span>
                                 <span class="menu-arrow"></span>
                             </a>
@@ -308,9 +325,7 @@
                     <img src="{{asset('assets/images/layouts/dark.png')}}" class="img-fluid img-thumbnail" alt="">
                 </div>
                 <div class="custom-control custom-switch mb-3">
-                    <input type="checkbox" class="custom-control-input theme-choice" id="dark-mode-switch"
-                        data-bsStyle="{{asset('assets/css/bootstrap-dark.min.css')}}"
-                        data-appStyle="{{asset('assets/css/app-dark.min.css')}}" />
+                    <input type="checkbox" class="custom-control-input theme-choice" id="dark-mode-switch" data-bsStyle="{{asset('assets/css/bootstrap-dark.min.css')}}" data-appStyle="{{asset('assets/css/app-dark.min.css')}}" />
                     <label class="custom-control-label" for="dark-mode-switch">Dark Mode</label>
                 </div>
 
@@ -318,8 +333,7 @@
                     <img src="{{asset('assets/images/layouts/rtl.png')}}" class="img-fluid img-thumbnail" alt="">
                 </div>
                 <div class="custom-control custom-switch mb-3">
-                    <input type="checkbox" class="custom-control-input theme-choice" id="rtl-mode-switch"
-                        data-appStyle="assets/css/app-rtl.min.css" />
+                    <input type="checkbox" class="custom-control-input theme-choice" id="rtl-mode-switch" data-appStyle="assets/css/app-rtl.min.css" />
                     <label class="custom-control-label" for="rtl-mode-switch">RTL Mode</label>
                 </div>
 
@@ -327,14 +341,11 @@
                     <img src="{{asset('assets/images/layouts/dark-rtl.png')}}" class="img-fluid img-thumbnail" alt="">
                 </div>
                 <div class="custom-control custom-switch mb-5">
-                    <input type="checkbox" class="custom-control-input theme-choice" id="dark-rtl-mode-switch"
-                        data-bsStyle="assets/css/bootstrap-dark.min.css"
-                        data-appStyle="assets/css/app-dark-rtl.min.css" />
+                    <input type="checkbox" class="custom-control-input theme-choice" id="dark-rtl-mode-switch" data-bsStyle="assets/css/bootstrap-dark.min.css" data-appStyle="assets/css/app-dark-rtl.min.css" />
                     <label class="custom-control-label" for="dark-rtl-mode-switch">Dark RTL Mode</label>
                 </div>
 
-                <a href="https://1.envato.market/y2YAD" class="btn btn-danger btn-block mt-3" target="_blank"><i
-                        class="mdi mdi-download mr-1"></i> Download Now</a>
+                <a href="https://1.envato.market/y2YAD" class="btn btn-danger btn-block mt-3" target="_blank"><i class="mdi mdi-download mr-1"></i> Download Now</a>
             </div>
         </div> <!-- end slimscroll-menu-->
     </div>

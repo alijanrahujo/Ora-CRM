@@ -48,7 +48,7 @@
               <tbody>
                 @foreach ($data as $key => $package)
                 <tr>
-                  <td>{{ $package->id }}</td>
+                  <td>{{ $loop->iteration }}</td>
                   <td>{{ $package->title }}</td>
                   <td>{{ $package->service_id }}</td>
                   <td>{{ $package->price }}</td>

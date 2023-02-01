@@ -66,7 +66,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Package Price <span class="text-danger">*</span></label>
-                                        <input type="number" name="price" min="2000" max="50000" parsley-trigger="change" required placeholder="Enter Amount" class="form-control">
+                                        <input type="number" name="price" min="1" parsley-trigger="change" required placeholder="Enter Amount" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-6">

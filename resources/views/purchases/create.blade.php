@@ -25,8 +25,7 @@
             </div>
 
             <!-- end page title -->
-            <a href="{{Route('purchases.index')}}" style="font-size: 20px;"><i class="fa fa-arrow-circle-left mb-2"
-                    aria-hidden="true"></i></a>
+            <a href="{{Route('purchases.index')}}" style="font-size: 20px;"><i class="fa fa-arrow-circle-left mb-2" aria-hidden="true"></i></a>
 
             <livewire:purchase-service />
 
