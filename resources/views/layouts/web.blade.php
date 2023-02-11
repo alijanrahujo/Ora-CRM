@@ -362,6 +362,36 @@
 
     @if($message = Session::get('success'))
     <script>
+        window.addEventListener('refresh-page', event => {
+            window.location.reload(false); 
+        });
+
+        window.addEventListener('swal:modal',event =>{
+            swal({
+                title: event.detail.title,
+                text: event.detail.text,
+                icon: event.detail.type,
+            });
+        });
+
+        window.addEventListener('swal:confirm',event =>{
+            swal({
+                title: event.detail.title,
+                text: event.detail.text,
+                icon: event.detail.type,
+                button: true,
+                dangerMode: true,
+            })
+            .then((willDelete) =>{
+                if(willDelete)
+                {
+                    window.livewire.emit('delete', event.detail.id);
+                }
+            });
+        });
+
+
+
         $.toast({
             heading: "Well done!",
             text: "{!! $message !!}",
