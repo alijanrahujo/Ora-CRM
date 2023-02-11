@@ -36,9 +36,9 @@
               <thead>
                 <tr>
                   <th>No</th>
+                  <th>Client Name</th>
                   <th>Package Title</th>
                   <th>Service Title</th>
-                  <th>Client Name</th>
                   <th>Duration</th>
                   <th>Current Status</th>
                   <th>Action</th>
@@ -47,16 +47,11 @@
               <tbody>
                 @foreach ($data as $key => $purchases)
                 <tr>
-                  <td>{{ $purchases->id }}</td>
-                  <td>{{ $purchases->title }}</td>
-                  <td>{{ $purchases->service_id }}</td>
-                  <td>@foreach($clients as $client)
-                    @if($client == $purchases->client_id)
-                    {{$client->name}}
-                    @endif
-                    @endforeach
-                  </td>
-                  <td>{{ $purchases->duration }} Months</td>
+                  <td>{{ $loop->iteration }}</td>
+                  <td>{{ $purchases->client->name }}</td>
+                  <td>{{ $purchases->package->title }}</td>
+                  <td>{{ $purchases->service->title }}</td>
+                  <td>{{ $purchases->package->duration }} Months</td>
                   <td>
                     <?php
                     if ($purchases->status == '1') {
@@ -67,7 +62,7 @@
                     ?>
                   </td>
                   <td>
-                    <a class="btn btn-success btn-xs" href="{{ route('purchases.show',$purchases-> id) }}">
+                    <a class="btn btn-success btn-xs" href="{{ route('purchases.show',$purchases->id) }}">
                       <i class="fas fa-check-square"></i>
                     </a>
                     <a class="btn btn-warning btn-xs" href="{{ route('purchases.edit',$purchases->id) }}">
