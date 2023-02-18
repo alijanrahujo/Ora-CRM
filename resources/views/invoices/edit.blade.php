@@ -1,7 +1,6 @@
 @extends('layouts.web')
 @section('title', 'Dashboard')
 @section('content')
-
 <div class="content-page">
     <div class="content">
 
@@ -24,11 +23,9 @@
                 </div>
             </div>
             <!-- end page title -->
-            <a href="{{Route('purchases.index')}}" style="font-size: 20px;"><i class="fa fa-arrow-circle-left mb-2" aria-hidden="true"></i></a>
             <a href="{{Route('services.index')}}" style="font-size: 20px;"><i class="fa fa-arrow-circle-left mb-2" aria-hidden="true"></i></a>
             <div class="row">
                 <div class="col-lg-12">
-
                     <div class="card-box">
 
                         @if (count($errors) > 0)
@@ -41,36 +38,11 @@
                             </ul>
                         </div>
                         @endif
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <div class="form-group">
+                                    <select name="client_id" class="form-control" required>
 
-                        {!! Form::model($package, ['method' => 'PATCH','route' => ['packages.update', $package->id]]) !!}
-                        <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <strong>Name:</strong>
-                                    {!! Form::text('title', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
-                                </div>
-                            </div>
-                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <strong>Price:</strong>
-                                    {!! Form::number('price', null, array('min'=>'2000','max'=>'10000','placeholder' => 'Price','class' => 'form-control')) !!}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <strong>Duration:</strong>
-                                    {!! Form::number('duration', null, array('min'=>'2','max'=>'12','placeholder' => 'Duration','class' => 'form-control')) !!}
-                                </div>
-                            </div>
-                            <div class="col-xs-6 col-sm-6 col-md-6">
-                                <div class="form-group">
-                                    <strong>Service:</strong>
-                                    <select name="service_id" class="form-control" required>
-                                        @foreach($services as $service)
-                                        <option selected="{{$service->id}}" value="{{$service->id}}">{{$service->title}}</option>
-                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -81,7 +53,7 @@
                                     <strong>Current Status:</strong>
                                     <select name="status" class="form-control">
                                         <?php
-                                        if ($package->status == '1') {
+                                        if ($invoice->status == '1') {
                                             echo '<option vlaue="1">Active</option>';
                                             echo '<option value="0">In Active</option>';
                                         } else {

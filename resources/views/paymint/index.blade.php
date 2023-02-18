@@ -2,10 +2,8 @@
 @section('title', 'Dashboard')
 @section('content')
 
-
 <div class="content-page">
   <div class="content">
-
     <!-- Start Content-->
     <div class="container-fluid">
 
@@ -16,18 +14,18 @@
             <div class="page-title-right">
               <ol class="breadcrumb m-0">
                 <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="javascript: void(0);">invoices</a></li>
-                <li class="breadcrumb-item active">All Inovices</li>
+                <li class="breadcrumb-item"><a href="javascript: void(0);">payments</a></li>
+                <li class="breadcrumb-item active">All Payments</li>
               </ol>
             </div>
-            <h4 class="page-title">Invoices</h4>
+            <h4 class="page-title">Payments</h4>
           </div>
         </div>
       </div>
       <!-- end page title -->
 
-      <a href="{{ route('invoices.create') }}" class="btn btn-success mb-2">
-        <i class="fa fa-plus"></i> Create Invoice
+      <a href="{{ route('paymint.create') }}" class="btn btn-success mb-2">
+        <i class="fa fa-plus"></i> Create Payment
       </a>
       <div class="row">
         <div class="col-12">
@@ -37,44 +35,14 @@
                 <tr>
                   <th>No</th>
                   <th>Client Name</th>
-                  <th>Service</th>
-                  <th>expiry Date</th>
+                  <th>Package Title</th>
+                  <th>Service Title</th>
+                  <th>Invoice No</th>
                   <th>Current Status</th>
-                  <th>Inovice Title</th>
                   <th>Action</th>
                 </tr>
               </thead>
-              <tbody>
-                @foreach($data as $val)
-                <tr>
-                  <td>{{$loop->iteration}}</td>
-                  <td>{{$val->client->name}}</td>
-                  <td>{{$val->purchase->service->title}}</td>
-                  <td>{{$val->expiry_date}}</td>
-                  <td>
-                    <?php
-                    if ($val->status == '1') {
-                      echo 'Active';
-                    } else {
-                      echo 'Inactive';
-                    }
-                    ?>
-                  </td>
-                  <td>{{$val->invoice_type}}</td>
-                  <td>
-                    <a class="btn btn-success btn-xs" href="{{ route('invoices.show',$val-> id) }}">
-                      <i class="fas fa-check-square"></i>
-                    </a>
-                    <a class="btn btn-warning btn-xs" href="{{ route('invoices.edit',$val->id) }}">
-                      <i class="far fa-edit"></i>
-                    </a>
-                    {!! Form::open(['method' => 'DELETE','route' => ['invoices.destroy', $val->id],'style'=>'display:inline']) !!}
-                    {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs'] ) !!}
-                    {!! Form::close() !!}
-                  </td>
-                </tr>
-                @endforeach
-              <tbody>
+              <tbody></tbody>
             </table>
           </div>
         </div>

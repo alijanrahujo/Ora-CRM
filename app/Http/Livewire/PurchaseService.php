@@ -66,6 +66,7 @@ class PurchaseService extends Component
     }
     public function storePurchaseService()
     {
+        dd();
         $this->validate([
             'client' => 'required',
             'service' => 'required',

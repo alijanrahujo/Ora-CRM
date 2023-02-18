@@ -49,7 +49,7 @@
               <tbody>
                 @foreach ($data as $key => $client)
                 <tr>
-                  <td>{{ $client->id }}</td>
+                  <td>{{ $loop->iteration }}</td>
                   <td>{{ $client->name }}</td>
                   <td>{{ $client->email }}</td>
                   <td>{{ $client->city }}</td>
