@@ -43,8 +43,8 @@ class Sub_packagesController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $input = $request->all();
-        // dd($request->packageid);
         $this->validate($request, [
             'packageid' => 'required',
             'sub_service_id*' => 'required',

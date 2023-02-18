@@ -17,9 +17,6 @@ class Purchase_serviceController extends Controller
      */
     public function index(Request $request)
     {
-        // $services = Services::get();
-        // $packages = Package::get();
-        // $clients = Client::get();
         $data = Purchase_service::orderBy('id', 'DESC')->paginate(5);
         return view('purchases.index', compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 5);

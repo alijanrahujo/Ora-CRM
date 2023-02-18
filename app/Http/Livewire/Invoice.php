@@ -3,9 +3,9 @@
 namespace App\Http\Livewire;
 
 use App\Models\Client;
-use App\Models\Inovice;
-use App\Models\Purchase_service;
+use App\Models\Invoicem;
 use Livewire\Component;
+use App\Models\Purchase_service;
 
 class Invoice extends Component
 {
@@ -24,9 +24,11 @@ class Invoice extends Component
     public $date;
     public $status;
     public $purchases;
-
-    public $invoice;
-
+    public $type = "add";
+    public $invoices;
+    public $expiry_date;
+    public $invoice_type;
+    public $data;
 
     public function mount()
     {
@@ -34,8 +36,8 @@ class Invoice extends Component
 
         $this->services = collect();
         $this->packages = collect();
-        $this->purchase_services = collect();
-        // $this->invoice = collect();
+        $this->purchases = collect();
+        $this->invoices = collect();
     }
     public function render()
     {
@@ -46,10 +48,16 @@ class Invoice extends Component
     {
         $this->services = Purchase_service::where('client_id', $id)->with('client')->get()->unique('service');
         $this->packages = collect();
-        $this->purchase_services = Purchase_service::get();
+        $this->invoices = Invoicem::where('client_id', $id)->with('client')->get();
+        $this->purchases = Purchase_service::where('client_id', $id)->with('client')->get();
     }
     public function updatedServiceid($id)
     {
         $this->packages = Purchase_service::where(['client_id' => $this->clientid, 'service_id' => $id])->with('client')->get();
+        // dd($this->clientid);
+    }
+    public function updateData($id)
+    {
+        $this->data = Invoicem::where('id', $id)->first();
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
-use App\Models\Inovice;
+use App\Models\Invoicem;
 use App\Models\Package;
 use App\Models\Services;
 use Illuminate\Http\Request;
@@ -16,13 +16,12 @@ class InoviceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-
-        // return Client::with('purchase_service')->get();
-
-        $purchase_service = Purchase_service::with(['client:id,name', 'service:id,title', 'package'])->get();
-        return view("invoices.index",);
+        // $data = "Yes wrking";
+        $data = Invoicem::orderBy('id', 'DESC')->paginate(5);
+        return view('invoices.index', compact('data'))
+            ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -43,15 +42,28 @@ class InoviceController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
-        $input = $request->all();
-        $invoice = Inovice::create($input);
-        return redirect()->route('invoices.index')->with('success', 'Invoice created successfully');
-        // $services = Services::first();
-        // $clients = Client::first();
-        // $packages = Package::first();
-        // $purchase = Purchase_service::where('client_id', $request->clientid)->first();
-        // return view("invoices.show", compact('purchase', 'services', 'clients', 'packages'));
+        // dd($request);
+        $this->validate($request, [
+            'clientid' => 'required',
+            'purchase_id' => 'required',
+            'invoice_status' => 'required',
+            'invoice_type' => 'required',
+            'expiry_date' => 'required',
+        ]);
+        for ($i = 0; $i < count($request->package_id); $i++) {
+            $data = [
+                'status' => $request->invoice_status,
+                'client_id' => $request->clientid,
+                'purchase_service_id' => $request->purchase_id,
+                'expiry_date' => $request->expiry_date,
+                'invoice_number' => 44,
+                'invoice_type' => $request->invoice_type,
+            ];
+            // dd($data);
+
+            $sub_package = Invoicem::create($data);
+            return redirect()->route('invoices.index')->with('success', 'Invoice created successfully');
+        }
     }
 
     /**
@@ -71,9 +83,10 @@ class InoviceController extends Controller
      * @param  \App\Models\Inovice  $inovice
      * @return \Illuminate\Http\Response
      */
-    public function edit(Inovice $inovice)
+    public function edit($id)
     {
-        //
+        $invoices = Invoicem::find($id);
+        return view("invoices.edit", compact('invoices'));
     }
 
     /**
@@ -83,7 +96,7 @@ class InoviceController extends Controller
      * @param  \App\Models\Inovice  $inovice
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Inovice $inovice)
+    public function update(Request $request)
     {
         //
     }
@@ -94,7 +107,7 @@ class InoviceController extends Controller
      * @param  \App\Models\Inovice  $inovice
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Inovice $inovice)
+    public function destroy()
     {
         //
     }
